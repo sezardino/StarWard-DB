@@ -21,30 +21,67 @@ class DataBase {
 
 	async getAllPeople() {
 		const data = await this.getResources(URL.ALL_PEOPLE());
-		return data.results;
+		return data.results.map(this._transformPerson);
 	}
 
 	async getAllStarships() {
 		const data = await this.getResources(URL.ALL_STARSHIPS());
-		return data.results;
+		return data.results.map(this._transformStarship);
 	}
 
 	async getAllPlanets() {
 		const data = await this.getResources(URL.ALL_PLANETS());
-		return data.results;
+		return data.results.map(this._transformPlanet);
 	}
 
-	getPerson(id) {
-		return this.getResources(URL.PERSON(id));
+	async getPerson(id) {
+		const data = await this.getResources(URL.PERSON(id));
+		return this._transformPerson(data);
 	}
 
-	getStarship(id) {
-		return this.getResources(URL.STARSHIP(id));
+	async getStarship(id) {
+		const data = await this.getResources(URL.STARSHIP(id));
+		console.log(data);
+		return this._transformStarship(data);
 	}
 
-	getPlanet(id) {
-		return this.getResources(URL.PLANET(id));
+	async getPlanet(id) {
+		const data = await this.getResources(URL.PLANET(id));
+		return this._transformPlanet(data);
 	}
+
+	_getId(string) {
+		const idRegEx = /\/([0-9]*)\/$/;
+		return string.match(idRegEx);
+	}
+
+	_transformPlanet = (planet) => ({
+		id: this._getId(planet.url)[1],
+		name: planet.name,
+		population: planet.population,
+		rotationPeriod: planet.rotation_period,
+		diameter: planet.diameter,
+	});
+
+	_transformStarship = (starship) => ({
+		id: this._getId(starship.url)[1],
+		name: starship.name,
+		model: starship.model,
+		manufacturer: starship.manufacturer,
+		costInCredits: starship.cost_in_credits,
+		length: starship.length,
+		crew: starship.crew,
+		passengers: starship.passengers,
+		cargoCapacity: starship.cargo_capacity,
+	});
+
+	_transformPerson = (person) => ({
+		id: this._getId(person.url)[1],
+		name: person.name,
+		gender: person.gender,
+		birthYear: person.birth_year,
+		eyeColor: person.eye_color,
+	});
 }
 
 export default DataBase;
