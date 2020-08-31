@@ -3,6 +3,7 @@ import DataBase from '../../api';
 import './random-planet.css';
 
 import Spinner from '../spinner';
+import ErrorIndicator from '../error-indicator';
 
 export default class RandomPlanet extends Component {
 	DataBase = new DataBase();
@@ -15,25 +16,33 @@ export default class RandomPlanet extends Component {
 	state = {
 		planet: {},
 		loading: true,
+		error: false,
 	};
 
 	onPlanetLoad = (planet) => {
 		this.setState({planet, loading: false});
 	};
 
+	onError = (error) => {
+		this.setState({error: true, loading: false});
+		console.error(error);
+	};
+
 	updatePlanet() {
 		const id = Math.floor(Math.random() * 25) + 1;
-		this.DataBase.getPlanet(id).then(this.onPlanetLoad);
+		this.DataBase.getPlanet(id).then(this.onPlanetLoad).catch(this.onError);
 	}
 
 	render() {
-		const {planet, loading} = this.state;
+		const {planet, loading, error} = this.state;
 
+		const errorIndicator = error ? <ErrorIndicator /> : null;
 		const spinner = loading ? <Spinner /> : null;
-		const content = !loading ? <PlanetView planet={planet} /> : null;
+		const content = !(loading || error) ? <PlanetView planet={planet} /> : null;
 
 		return (
 			<div className="random-planet jumbotron rounded">
+				{errorIndicator}
 				{spinner}
 				{content}
 			</div>
