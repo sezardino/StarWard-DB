@@ -9,7 +9,7 @@ const URL = {
 };
 
 class DataBase {
-	async getResources(url) {
+	getResources = async (url) => {
 		const response = await fetch(`${URL.API()}${url}`);
 		if (!response.ok) {
 			throw new Error(`Error with ${url} error status ${response.status}`);
@@ -17,42 +17,42 @@ class DataBase {
 
 		const data = await response.json();
 		return data;
-	}
+	};
 
-	async getAllPeople() {
+	getAllPeople = async () => {
 		const data = await this.getResources(URL.ALL_PEOPLE());
 		return data.results.map(this._transformPerson);
-	}
+	};
 
-	async getAllStarships() {
+	getAllStarships = async () => {
 		const data = await this.getResources(URL.ALL_STARSHIPS());
 		return data.results.map(this._transformStarship);
-	}
+	};
 
-	async getAllPlanets() {
+	getAllPlanets = async () => {
 		const data = await this.getResources(URL.ALL_PLANETS());
 		return data.results.map(this._transformPlanet);
-	}
+	};
 
-	async getPerson(id) {
+	getPerson = async (id) => {
 		const data = await this.getResources(URL.PERSON(id));
 		return this._transformPerson(data);
-	}
+	};
 
-	async getStarship(id) {
+	getStarship = async (id) => {
 		const data = await this.getResources(URL.STARSHIP(id));
 		return this._transformStarship(data);
-	}
+	};
 
-	async getPlanet(id) {
+	getPlanet = async (id) => {
 		const data = await this.getResources(URL.PLANET(id));
 		return this._transformPlanet(data);
-	}
+	};
 
-	_getId(string) {
+	_getId = (string) => {
 		const idRegEx = /\/([0-9]*)\/$/;
 		return string.match(idRegEx);
-	}
+	};
 
 	_transformPlanet = (planet) => ({
 		id: this._getId(planet.url)[1],
