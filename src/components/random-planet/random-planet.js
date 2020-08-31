@@ -8,16 +8,20 @@ import ErrorIndicator from '../error-indicator';
 export default class RandomPlanet extends Component {
 	DataBase = new DataBase();
 
-	constructor() {
-		super();
-		this.updatePlanet();
-	}
-
 	state = {
 		planet: {},
 		loading: true,
 		error: false,
 	};
+
+	componentDidMount() {
+		this.updatePlanet();
+		this.interval = setInterval(this.updatePlanet, 5000);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
 
 	onPlanetLoad = (planet) => {
 		this.setState({planet, loading: false});
@@ -28,10 +32,10 @@ export default class RandomPlanet extends Component {
 		console.error(error);
 	};
 
-	updatePlanet() {
+	updatePlanet = () => {
 		const id = Math.floor(Math.random() * 25) + 1;
 		this.DataBase.getPlanet(id).then(this.onPlanetLoad).catch(this.onError);
-	}
+	};
 
 	render() {
 		const {planet, loading, error} = this.state;
