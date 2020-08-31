@@ -28,7 +28,7 @@ export default class App extends Component {
 						<ItemList onListItemClick={this.listItemHandler} />
 					</div>
 					<div className="col-md-6">
-						<PersonDetails data={selectedItem} />
+						<PersonDetails dataId={selectedItem} />
 					</div>
 				</div>
 			</div>
