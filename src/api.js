@@ -41,7 +41,6 @@ class DataBase {
 
 	async getStarship(id) {
 		const data = await this.getResources(URL.STARSHIP(id));
-		console.log(data);
 		return this._transformStarship(data);
 	}
 
