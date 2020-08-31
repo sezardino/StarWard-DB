@@ -32,10 +32,13 @@ export default class ItemList extends Component {
 	};
 
 	render() {
+		const {onListItemClick} = this.props;
 		const {listItems, loading, error} = this.state;
 		const spinner = loading ? <Spinner /> : null;
 		const errorIndicator = error ? <ErrorIndicator /> : null;
-		const list = !(loading || error) ? <ListView items={listItems} /> : null;
+		const list = !(loading || error) ? (
+			<ListView items={listItems} onItemClick={onListItemClick} />
+		) : null;
 
 		return (
 			<React.Fragment>
@@ -47,11 +50,11 @@ export default class ItemList extends Component {
 	}
 }
 
-const ListView = ({items}) => {
+const ListView = ({items, onItemClick}) => {
 	return (
 		<ul className="item-list list-group">
 			{items.map(({id, name}) => (
-				<li key={id} className="list-group-item">
+				<li key={id} className="list-group-item" onClick={() => onItemClick(id)}>
 					{name}
 				</li>
 			))}

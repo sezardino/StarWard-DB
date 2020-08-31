@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
@@ -7,22 +7,31 @@ import PersonDetails from '../person-details';
 
 import './app.css';
 
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <RandomPlanet />
+export default class App extends Component {
+	state = {
+		selectedItem: null,
+	};
 
-      <div className="row mb2">
-        <div className="col-md-6">
-          <ItemList />
-        </div>
-        <div className="col-md-6">
-          <PersonDetails />
-        </div>
-      </div>
-    </div>
-  );
-};
+	listItemHandler = (selectedItem) => {
+		this.setState({selectedItem});
+	};
 
-export default App;
+	render() {
+		const {selectedItem} = this.state;
+		return (
+			<div>
+				<Header />
+				<RandomPlanet />
+
+				<div className="row mb2">
+					<div className="col-md-6">
+						<ItemList onListItemClick={this.listItemHandler} />
+					</div>
+					<div className="col-md-6">
+						<PersonDetails data={selectedItem} />
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
