@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import DataBase from '../../api';
 import './random-planet.css';
 
+import Spiner from '../spiner';
+
 export default class RandomPlanet extends Component {
 	DataBase = new DataBase();
 
