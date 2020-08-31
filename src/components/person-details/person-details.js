@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import DataBase from '../../api';
-
-import './person-details.css';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
+import ErrorButton from '../error-button';
+
+import './person-details.css';
 
 export default class PersonDetails extends Component {
 	DataBase = new DataBase();
@@ -78,6 +79,7 @@ const PersonDetailsView = (props) => {
 						<span className="term">Eye Color</span>
 						<span>{eyeColor}</span>
 					</li>
+					<ErrorButton />
 				</ul>
 			</div>
 		</div>
