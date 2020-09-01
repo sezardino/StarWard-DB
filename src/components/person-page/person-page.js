@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import ItemList from '../item-list';
-import ItemDetails from '../item-details';
-import ErrorIndicator from '../error-indicator';
+import ItemDetails, {Record} from '../item-details';
 import DataBase from '../../api';
 import Row from '../row';
 import ErrorBoundary from '../error-boundary';
 
-export default class PersonPage extends Component {
-	DataBase = new DataBase();
+import {withData} from '../../hoc';
 
+const dataBase = new DataBase();
+const ItemListWrapped = withData(ItemList, dataBase.getAllPeople);
+
+export default class PersonPage extends Component {
 	state = {
 		selectedItem: 5,
 	};
@@ -18,27 +20,34 @@ export default class PersonPage extends Component {
 	};
 
 	render() {
-		const {selectedItem, hasError} = this.state;
-
-		if (hasError) {
-			return <ErrorIndicator />;
-		}
+		const {selectedItem} = this.state;
 
 		const itemList = (
-			<ItemList
-				getData={this.DataBase.getAllPeople}
+			<ItemListWrapped
 				onListItemClick={this.listItemHandler}
 				renderItem={({name, gender}) => `${name} | gender: ${gender}`}
 			/>
 		);
 
-		const personDetails = <ItemDetails dataId={selectedItem} getData={this.DataBase.getPerson} />;
-		const starshipDetails = <ItemDetails dataId={5} getData={this.DataBase.getStarship} />;
+		const personDetails = (
+			<ItemDetails dataId={selectedItem} getData={dataBase.getPerson}>
+				<Record field="gender" label="Gender" />
+				<Record field="birthYear" label="Birth Year" />
+				<Record field="eyeColor" label="Eye Color" />
+			</ItemDetails>
+		);
+		const starshipDetails = (
+			<ItemDetails dataId={5} getData={dataBase.getStarship}>
+				<Record field="name" label="Name" />
+				<Record field="length" label="Length" />
+				<Record field="costInCredits" label="Cost" />
+			</ItemDetails>
+		);
 
 		return (
 			<ErrorBoundary>
-				{/* <Row left={itemList} right={personDetails} /> */}
-				<Row left={personDetails} right={starshipDetails} />
+				<Row left={itemList} right={personDetails} />
+				{/* <Row left={personDetails} right={starshipDetails} /> */}
 			</ErrorBoundary>
 		);
 	}
