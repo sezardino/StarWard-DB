@@ -1,11 +1,15 @@
 const URL = {
 	API: () => `https://swapi.dev/api/`,
+	IMG: () => `https://starwars-visualguide.com/assets/img/`,
 	ALL_PEOPLE: () => `people/`,
-	PERSON: (id) => `people/${id}/`,
 	ALL_STARSHIPS: () => `starships/`,
-	STARSHIP: (id) => `starships/${id}/`,
 	ALL_PLANETS: () => 'planets/',
+	PERSON: (id) => `people/${id}/`,
+	STARSHIP: (id) => `starships/${id}/`,
 	PLANET: (id) => `planets/${id}/`,
+	PERSON_IMG: (id) => `${URL.IMG()}/characters/${id}.jpg`,
+	STARSHIP_IMG: (id) => `${URL.IMG()}/starships/${id}.jpg`,
+	PLANET_IMG: (id) => `${URL.IMG()}/planets/${id}.jpg`,
 };
 
 class DataBase {
@@ -54,33 +58,45 @@ class DataBase {
 		return string.match(idRegEx);
 	};
 
-	_transformPlanet = (planet) => ({
-		id: this._getId(planet.url)[1],
-		name: planet.name,
-		population: planet.population,
-		rotationPeriod: planet.rotation_period,
-		diameter: planet.diameter,
-	});
+	_transformPlanet = (planet) => {
+		const id = this._getId(planet.url)[1];
+		return {
+			id,
+			name: planet.name,
+			population: planet.population,
+			rotationPeriod: planet.rotation_period,
+			diameter: planet.diameter,
+			img: URL.PLANET_IMG(id),
+		};
+	};
 
-	_transformStarship = (starship) => ({
-		id: this._getId(starship.url)[1],
-		name: starship.name,
-		model: starship.model,
-		manufacturer: starship.manufacturer,
-		costInCredits: starship.cost_in_credits,
-		length: starship.length,
-		crew: starship.crew,
-		passengers: starship.passengers,
-		cargoCapacity: starship.cargo_capacity,
-	});
+	_transformStarship = (starship) => {
+		const id = this._getId(starship.url)[1];
+		return {
+			id,
+			name: starship.name,
+			model: starship.model,
+			manufacturer: starship.manufacturer,
+			costInCredits: starship.cost_in_credits,
+			length: starship.length,
+			crew: starship.crew,
+			passengers: starship.passengers,
+			cargoCapacity: starship.cargo_capacity,
+			img: URL.STARSHIP_IMG(id),
+		};
+	};
 
-	_transformPerson = (person) => ({
-		id: this._getId(person.url)[1],
-		name: person.name,
-		gender: person.gender,
-		birthYear: person.birth_year,
-		eyeColor: person.eye_color,
-	});
+	_transformPerson = (person) => {
+		const id = this._getId(person.url)[1];
+		return {
+			id,
+			name: person.name,
+			gender: person.gender,
+			birthYear: person.birth_year,
+			eyeColor: person.eye_color,
+			img: URL.PERSON_IMG(id),
+		};
+	};
 }
 
 export default DataBase;
