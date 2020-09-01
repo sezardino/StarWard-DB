@@ -4,7 +4,7 @@ import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 import ErrorButton from '../error-button';
 
-import './person-details.css';
+import './item-details.css';
 
 export default class PersonDetails extends Component {
 	DataBase = new DataBase();
@@ -14,6 +14,10 @@ export default class PersonDetails extends Component {
 		loading: true,
 		error: false,
 	};
+
+	componentDidMount() {
+		this.updatePerson();
+	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.dataId !== prevProps.dataId) {
@@ -31,8 +35,8 @@ export default class PersonDetails extends Component {
 	};
 
 	updatePerson = () => {
-		const {dataId} = this.props;
-		this.DataBase.getPerson(dataId).then(this.onPersonLoad).catch(this.onError);
+		const {dataId, getData} = this.props;
+		getData(dataId).then(this.onPersonLoad).catch(this.onError);
 	};
 
 	render() {
@@ -55,14 +59,10 @@ export default class PersonDetails extends Component {
 }
 
 const PersonDetailsView = (props) => {
-	const {id, name, gender, birthYear, eyeColor} = props.data;
+	const {id, name, gender, birthYear, eyeColor, img} = props.data;
 	return (
 		<div className="person-details card">
-			<img
-				className="person-image"
-				src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-				alt={name}
-			/>
+			<img className="person-image" src={img} alt={name} />
 
 			<div className="card-body">
 				<h4>{name}</h4>

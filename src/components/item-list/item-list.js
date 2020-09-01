@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import DataBase from '../../api';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
 
 import './item-list.css';
 
 export default class ItemList extends Component {
-	DataBase = new DataBase();
-
 	state = {
 		listItems: null,
 		loading: true,
@@ -28,16 +25,17 @@ export default class ItemList extends Component {
 	};
 
 	updateList = () => {
-		this.DataBase.getAllPeople().then(this.onListLoad).catch(this.onError);
+		const {getData} = this.props;
+		getData().then(this.onListLoad).catch(this.onError);
 	};
 
 	render() {
-		const {onListItemClick} = this.props;
+		const {onListItemClick, renderItem} = this.props;
 		const {listItems, loading, error} = this.state;
 		const spinner = loading ? <Spinner /> : null;
 		const errorIndicator = error ? <ErrorIndicator /> : null;
 		const list = !(loading || error) ? (
-			<ListView items={listItems} onItemClick={onListItemClick} />
+			<ListView items={listItems} onItemClick={onListItemClick} renderItem={renderItem} />
 		) : null;
 
 		return (
@@ -50,14 +48,18 @@ export default class ItemList extends Component {
 	}
 }
 
-const ListView = ({items, onItemClick}) => {
+const ListView = ({items, onItemClick, renderItem}) => {
 	return (
 		<ul className="item-list list-group">
-			{items.map(({id, name}) => (
-				<li key={id} className="list-group-item" onClick={() => onItemClick(id)}>
-					{name}
-				</li>
-			))}
+			{items.map((item) => {
+				const {id} = item;
+				const label = renderItem(item);
+				return (
+					<li key={id} className="list-group-item" onClick={() => onItemClick(id)}>
+						{label}
+					</li>
+				);
+			})}
 		</ul>
 	);
 };
