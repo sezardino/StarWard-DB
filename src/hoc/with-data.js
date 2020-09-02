@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Spinner from '../components/spinner';
 import ErrorIndicator from '../components//error-indicator';
 
 const withData = (View) => {
-	return class WithData extends Component {
+	class WithData extends Component {
 		state = {
 			data: null,
 			loading: true,
@@ -56,7 +57,14 @@ const withData = (View) => {
 				</React.Fragment>
 			);
 		}
+	}
+
+	WithData.propTypes = {
+		dataId: PropTypes.number,
+		getData: PropTypes.func.isRequired,
 	};
+
+	return WithData;
 };
 
 export default withData;

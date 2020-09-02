@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ErrorBoundary from '../error-boundary';
 import {PersonPage, PlanetPage, StarshipPage} from '../pages/';
-// import RandomPlanet from '../random-planet/';
 import {RandomPlanet} from '../app-components';
 import Header from '../header';
 

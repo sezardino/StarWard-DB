@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorButton from '../error-button';
+import PropTypes from 'prop-types';
 
 import './item-details.css';
 
@@ -18,7 +18,6 @@ const ItemDetails = (props) => {
 				<h4>{name}</h4>
 				<ul className="list-group list-group-flush">
 					{React.Children.map(children, (child) => React.cloneElement(child, {data}))}
-					<ErrorButton />
 				</ul>
 			</div>
 		</div>
@@ -33,6 +32,17 @@ const Record = (props) => {
 			<span>{data[field]}</span>
 		</li>
 	);
+};
+
+ItemDetails.propTypes = {
+	data: PropTypes.object,
+	children: PropTypes.node.isRequired,
+};
+
+Record.propTypes = {
+	label: PropTypes.string.isRequired,
+	field: PropTypes.string.isRequired,
+	data: PropTypes.object,
 };
 
 export {Record, ItemDetails};

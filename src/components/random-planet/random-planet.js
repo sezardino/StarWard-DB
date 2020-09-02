@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './random-planet.css';
 
 const RandomPlanet = (props) => {
@@ -29,6 +30,10 @@ const RandomPlanet = (props) => {
 			</div>
 		</div>
 	);
+};
+
+RandomPlanet.propTypes = {
+	data: PropTypes.object,
 };
 
 export default RandomPlanet;
