@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Spinner from '../components/spinner';
 import ErrorIndicator from '../components//error-indicator';
 
-const withData = (View, getData) => {
-	return class extends Component {
+const withData = (View) => {
+	return class WithData extends Component {
 		state = {
 			data: null,
 			loading: true,
@@ -11,10 +11,21 @@ const withData = (View, getData) => {
 		};
 
 		componentDidMount() {
-			this.updateList();
+			const {dataId} = this.props;
+			if (dataId === null) {
+				this.setState({loading: false});
+			} else {
+				this.updateData();
+			}
 		}
 
-		onListLoad = (data) => {
+		componentDidUpdate(prevProps) {
+			if (this.props.dataId !== prevProps.dataId) {
+				this.updateData();
+			}
+		}
+
+		onDataLoad = (data) => {
 			this.setState({
 				data,
 				loading: false,
@@ -26,8 +37,9 @@ const withData = (View, getData) => {
 			console.error(error);
 		};
 
-		updateList = () => {
-			getData().then(this.onListLoad).catch(this.onError);
+		updateData = () => {
+			const {dataId = ``, getData} = this.props;
+			getData(dataId).then(this.onDataLoad).catch(this.onError);
 		};
 
 		render() {
