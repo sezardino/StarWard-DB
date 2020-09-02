@@ -1,65 +1,15 @@
-import React, {Component} from 'react';
-import DataBase from '../../api';
-import Spinner from '../spinner';
-import ErrorIndicator from '../error-indicator';
+import React from 'react';
 import ErrorButton from '../error-button';
 
 import './item-details.css';
 
-export default class PersonDetails extends Component {
-	DataBase = new DataBase();
-
-	state = {
-		selectedPerson: null,
-		loading: true,
-		error: false,
-	};
-
-	componentDidMount() {
-		this.updatePerson();
+const ItemDetails = (props) => {
+	const {data, children} = props;
+	if (!data) {
+		return <p>Choose a character</p>;
 	}
+	const {name, img} = data;
 
-	componentDidUpdate(prevProps) {
-		if (this.props.dataId !== prevProps.dataId) {
-			this.updatePerson();
-		}
-	}
-
-	onPersonLoad = (selectedPerson) => {
-		this.setState({selectedPerson, loading: false});
-	};
-
-	onError = (error) => {
-		this.setState({loading: false, error: true});
-		console.error(error);
-	};
-
-	updatePerson = () => {
-		const {dataId, getData} = this.props;
-		getData(dataId).then(this.onPersonLoad).catch(this.onError);
-	};
-
-	render() {
-		const {selectedPerson, loading, error} = this.state;
-		const spinner = loading ? <Spinner /> : null;
-		const errorIndicator = error ? <ErrorIndicator /> : null;
-		const personDetails = !(loading || error) ? <PersonDetailsView data={selectedPerson} /> : null;
-
-		if (!selectedPerson) {
-			return <p>Choose a character</p>;
-		}
-		return (
-			<React.Fragment>
-				{spinner}
-				{errorIndicator}
-				{personDetails}
-			</React.Fragment>
-		);
-	}
-}
-
-const PersonDetailsView = (props) => {
-	const {id, name, gender, birthYear, eyeColor, img} = props.data;
 	return (
 		<div className="person-details card">
 			<img className="person-image" src={img} alt={name} />
@@ -67,21 +17,22 @@ const PersonDetailsView = (props) => {
 			<div className="card-body">
 				<h4>{name}</h4>
 				<ul className="list-group list-group-flush">
-					<li className="list-group-item">
-						<span className="term">Gender</span>
-						<span>{gender}</span>
-					</li>
-					<li className="list-group-item">
-						<span className="term">Birth Year</span>
-						<span>{birthYear}</span>
-					</li>
-					<li className="list-group-item">
-						<span className="term">Eye Color</span>
-						<span>{eyeColor}</span>
-					</li>
+					{React.Children.map(children, (child) => React.cloneElement(child, {data}))}
 					<ErrorButton />
 				</ul>
 			</div>
 		</div>
 	);
 };
+
+const Record = (props) => {
+	const {label, field, data} = props;
+	return (
+		<li className="list-group-item">
+			<span className="term">{label}</span>
+			<span>{data[field]}</span>
+		</li>
+	);
+};
+
+export {Record, ItemDetails};
