@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import ErrorBoundary from '../error-boundary';
 import {PersonPage, PlanetPage, StarshipPage} from '../pages/';
 import {RandomPlanet} from '../app-components';
@@ -8,13 +9,14 @@ export default class App extends Component {
 	render() {
 		return (
 			<ErrorBoundary>
-				<Header />
+				<Router>
+					<Header />
+					<RandomPlanet />
 
-				<RandomPlanet />
-
-				<PersonPage />
-				<PlanetPage />
-				<StarshipPage />
+					<Route path="/people" component={PersonPage} />
+					<Route path="/planets" component={PlanetPage} />
+					<Route path="/starships" component={StarshipPage} />
+				</Router>
 			</ErrorBoundary>
 		);
 	}
