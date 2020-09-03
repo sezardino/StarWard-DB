@@ -60,7 +60,6 @@ const withData = (View) => {
 	}
 
 	WithData.propTypes = {
-		dataId: PropTypes.number,
 		getData: PropTypes.func.isRequired,
 	};
 
