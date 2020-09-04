@@ -1,25 +1,19 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
+import {withRouter} from 'react-router-dom';
 import Row from '../row';
 import {PersonList, PersonDetails} from '../app-components';
 
-export default class PersonPage extends PureComponent {
-	state = {
-		selectedItem: null,
-	};
+const PersonPage = ({history, match}) => {
+	let id = match.params.id ? match.params.id : null;
 
-	itemClickHandler = (selectedItem) => {
-		this.setState({selectedItem});
-	};
+	return (
+		<Row
+			left={
+				<PersonList renderItem={({name}) => `${name}`} onListItemClick={(id) => history.push(id)} />
+			}
+			right={<PersonDetails dataId={id} />}
+		/>
+	);
+};
 
-	render() {
-		const {selectedItem} = this.state;
-		return (
-			<Row
-				left={
-					<PersonList renderItem={({name}) => `${name}`} onListItemClick={this.itemClickHandler} />
-				}
-				right={<PersonDetails dataId={selectedItem} />}
-			/>
-		);
-	}
-}
+export default withRouter(PersonPage);
