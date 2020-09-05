@@ -1,6 +1,6 @@
 {
   "name": "star-wars-db",
-  "homepage": "https://sezardino.github.io/starward-db/",
+  "homepage": "https://sezardino.github.io/starward-db",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
