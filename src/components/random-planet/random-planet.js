@@ -33,7 +33,13 @@ const RandomPlanet = (props) => {
 };
 
 RandomPlanet.propTypes = {
-	data: PropTypes.object,
+	data: PropTypes.shape({
+		name: PropTypes.string,
+		population: PropTypes.string,
+		rotationPeriod: PropTypes.string,
+		diameter: PropTypes.string,
+		img: PropTypes.string,
+	}),
 };
 
 export default RandomPlanet;

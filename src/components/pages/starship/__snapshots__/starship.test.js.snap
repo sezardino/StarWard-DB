@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component StarshipPage Component rendered correctly 1`] = `"<Component renderItem={[Function: renderItem]} onListItemClick={[Function: onListItemClick]} />"`;

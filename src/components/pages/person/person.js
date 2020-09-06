@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import Row from '../row';
-import {PersonList, PersonDetails} from '../app-components';
+import Row from '../../row';
+import {PersonList, PersonDetails} from '../../app-components';
 
 const PersonPage = ({history, match}) => {
 	let id = match.params.id ? match.params.id : null;
@@ -16,4 +16,5 @@ const PersonPage = ({history, match}) => {
 	);
 };
 
+export {PersonPage};
 export default withRouter(PersonPage);

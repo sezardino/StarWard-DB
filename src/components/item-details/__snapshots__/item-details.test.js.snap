@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component ItemDetails Component rendered correctly 1`] = `
+"<ItemDetails data={{...}}>
+  <div className=\\"person-details card\\">
+    <img className=\\"person-image\\" src=\\"Test img\\" alt=\\"Test name\\" />
+    <div className=\\"card-body\\">
+      <h4>
+        Test name
+      </h4>
+      <ul className=\\"list-group list-group-flush\\">
+        <Record field=\\"gender\\" label=\\"gender label\\" data={{...}}>
+          <li className=\\"list-group-item\\">
+            <span className=\\"term\\">
+              gender label
+            </span>
+            <span>
+              Test gender
+            </span>
+          </li>
+        </Record>
+        <Record field=\\"someData\\" label=\\"Some label\\" data={{...}}>
+          <li className=\\"list-group-item\\">
+            <span className=\\"term\\">
+              Some label
+            </span>
+            <span>
+              Test data
+            </span>
+          </li>
+        </Record>
+      </ul>
+    </div>
+  </div>
+</ItemDetails>"
+`;

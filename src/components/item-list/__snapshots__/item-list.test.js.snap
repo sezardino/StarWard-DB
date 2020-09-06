@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component ItemList Component rendered correctly 1`] = `
+"<ul className=\\"item-list list-group\\">
+  <li className=\\"list-group-item\\" onClick={[Function: onClick]}>
+    Test name
+  </li>
+  <li className=\\"list-group-item\\" onClick={[Function: onClick]}>
+    Test name
+  </li>
+</ul>"
+`;

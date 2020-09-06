@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component Record Component rendered correctly 1`] = `
+"<li className=\\"list-group-item\\">
+  <span className=\\"term\\">
+    Test label
+  </span>
+  <span>
+    Test name
+  </span>
+</li>"
+`;

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component App Component App rendered correctly 1`] = `
+"<ErrorBoundary>
+  <BrowserRouter>
+    <Header />
+    <Component />
+    <Switch>
+      <Route path=\\"/\\" exact={true} render={[Function: render]} />
+      <Route path=\\"/people/:id?\\" exact={true} component={[Function: C]} />
+      <Route path=\\"/planets\\" exact={true} component={[function]} />
+      <Route path=\\"/starships\\" exact={true} component={[Function: C]} />
+      <Route path=\\"/starships/:id\\" render={[Function: render]} />
+      <Route path=\\"/login\\" exact={true} render={[Function: render]} />
+      <Route path=\\"/secret\\" exact={true} render={[Function: render]} />
+      <Route render={[Function: render]} />
+    </Switch>
+  </BrowserRouter>
+</ErrorBoundary>"
+`;

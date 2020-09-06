@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import Row from '../row';
-import {PlanetList, PlanetDetails} from '../app-components';
+import Row from '../../row';
+import {PlanetList, PlanetDetails} from '../../app-components';
 
 export default class PlanetPage extends PureComponent {
 	state = {

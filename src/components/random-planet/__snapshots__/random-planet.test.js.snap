@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component RandomPlanet Component rendered correctly 1`] = `
+"<div className=\\"random-planet jumbotron rounded\\">
+  <img className=\\"planet-image\\" src=\\"Test img\\" alt=\\"Test name\\" />
+  <div>
+    <h4>
+      Test name
+    </h4>
+    <ul className=\\"list-group list-group-flush\\">
+      <li className=\\"list-group-item\\">
+        <span className=\\"term\\">
+          Population
+        </span>
+        <span>
+          Test population
+        </span>
+      </li>
+      <li className=\\"list-group-item\\">
+        <span className=\\"term\\">
+          Rotation Period
+        </span>
+        <span>
+          Test period
+        </span>
+      </li>
+      <li className=\\"list-group-item\\">
+        <span className=\\"term\\">
+          Diameter
+        </span>
+        <span>
+          Test diameter
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>"
+`;
